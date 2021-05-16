@@ -171,6 +171,7 @@ def search_widget(doctype, txt, query=None, searchfield=None, start=0,
 
 			if doctype in UNTRANSLATED_DOCTYPES:
 				values = tuple([v for v in list(values) if re.search(re.escape(txt)+".*", (_(v.name) if as_dict else _(v[0])), re.IGNORECASE)])
+				values = tuple(sorted(values, key= lambda x: ((_(x.name) if as_dict else _(x[0])).lower().startswith(txt.lower()) == False, (_(x.name) if as_dict else _(x[0])))))
 
 			# remove _relevance from results
 			if as_dict:
